@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container my-5">
+  <h1 class="text-center fw-bold mb-4">🏋️ Workouts Library + Nutrition Tips 🥗</h1>
+
+  {% if workouts %}
+    <div class="row g-4">
+      {% for workout in workouts %}
+        <div class="col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h4 class="card-title">{{ workout.title }}</h4>
+              <span class="badge bg-secondary mb-2">{{ workout.get_difficulty_display }}</span>
+              <p class="text-muted">⏱ {{ workout.duration }} minutes</p>
+              <p>{{ workout.description }}</p>
+
+              {% if workout.video_url %}
+                <div class="ratio ratio-16x9 mb-3">
+                  <iframe src="{{ workout.video_url }}" title="{{ workout.title }}" allowfullscreen></iframe>
+                </div>
+              {% endif %}
+
+              {% if workout.recommended_meal %}
+                <div class="alert alert-success mt-3">
+                  <strong>🍽️ Recommended Meal:</strong> {{ workout.recommended_meal.title }}<br>
+                  Calories: {{ workout.recommended_meal.calories }}<br>
+                  Meals: {{ workout.recommended_meal.meals }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No workouts available yet. Check back soon!</p>
+  {% endif %}
+</div>
+{% endblock %}

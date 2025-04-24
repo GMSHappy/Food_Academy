@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>My Profile</h2>
+    {% if profile %}
+      <p><strong>Username:</strong> {{ request.user.username }}</p>
+      <p><strong>Bio:</strong> {{ profile.bio }}</p>
+      <p><strong>Location:</strong> {{ profile.location }}</p>
+      <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>
+    {% else %}
+      <p>You haven't created a profile yet.</p>
+      <a href="{% url 'create_profile' %}">Create your profile</a>
+    {% endif %}
+  </div>
+{% endblock %}

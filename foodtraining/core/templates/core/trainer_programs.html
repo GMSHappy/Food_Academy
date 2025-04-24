@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="fw-bold">🎓 Your Programs</h2>
+  <ul class="list-group mt-4">
+    {% for program in programs %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ program.title }}
+        <a href="{% url 'manage_lectures' program.id %}" class="btn btn-sm btn-primary">Manage Lectures</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">You don't have any assigned programs yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+*Work out page*
+
+This page uses Django’s ORM to get all workouts from the database. Each one is shown inside a Bootstrap card with the title, type, duration, and instructions. I used a responsive grid layout and simple styling to keep it consistent with the home and programs pages.
+
+*DB* and Profile section*
+“I added a check in the view to handle the case where the user already has a profile. Because user is a OneToOneField, creating two profiles for the same user causes a conflict, so I used instance=profile to update instead of insert.”

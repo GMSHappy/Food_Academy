@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  # Page title
+  <h1 class="text-center fw-bold mb-4">🚀 Admin Dashboard</h1>
+
+  <div class="row text-center">
+    # Card for total users
+    <div class="col-md-4 mb-3">
+      <div class="card shadow p-3">
+        <h4>Users</h4>
+        <p class="fs-3">{{ user_count }}</p> # Total number of users
+      </div>
+    </div>
+    # Card for total programs
+    <div class="col-md-4 mb-3">
+      <div class="card shadow p-3">
+        <h4>Programs</h4>
+        <p class="fs-3">{{ program_count }}</p> # Total number of programs
+      </div>
+    </div>
+    # Card for total workouts
+    <div class="col-md-4 mb-3">
+      <div class="card shadow p-3">
+        <h4>Workouts</h4>
+        <p class="fs-3">{{ workout_count }}</p> # Total number of workouts
+      </div>
+    </div>
+    # Card for total blogs
+    <div class="col-md-6 mb-3">
+      <div class="card shadow p-3">
+        <h4>Blogs</h4>
+        <p class="fs-3">{{ blog_count }}</p> # Total number of blogs
+      </div>
+    </div>
+  </div>
+
+  # Button to access the Django admin panel
+  <div class="text-center mt-4">
+    <a href="/admin/" class="btn btn-primary px-4 py-2">Go to Admin Panel</a>
+  </div>
+</div>
+
+{% endblock %}

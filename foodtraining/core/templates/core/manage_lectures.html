@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="fw-bold mb-4">Manage Lectures for "{{ program.title }}"</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="mb-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Add Lecture</button>
+  </form>
+
+  <h4 class="mb-3">📚 Current Lectures</h4>
+  <ul class="list-group">
+    {% for lecture in lectures %}
+      <li class="list-group-item">
+        <strong>{{ lecture.title }}</strong> - {{ lecture.description }}
+        {% if lecture.video_url %}
+          <br><a href="{{ lecture.video_url }}" target="_blank">▶️ Watch Video</a>
+        {% endif %}
+        {% if lecture.pdf %}
+          <br><a href="{{ lecture.pdf.url }}" target="_blank">📄 Download PDF</a>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li class="list-group-item">No lectures added yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

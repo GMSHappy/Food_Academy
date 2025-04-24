@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="fw-bold">Food & Training Blog</h1>
+    {% for blog in blogs %}
+        <div class="my-4 p-3 border rounded shadow-sm">
+            <h3>{{ blog.title }}</h3>
+            <small class="text-muted">Posted on {{ blog.date_posted|date:"F d, Y" }}</small>
+            <p class="mt-2">{{ blog.content|truncatewords:25 }}</p>
+            <a href="{% url 'blog_detail' blog.id %}" class="btn btn-sm btn-outline-primary">Read More</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

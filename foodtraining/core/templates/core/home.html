@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="hero-overlay">
+        <h1 class="hero-title">Welcome to your fitness journey!</h1>
+        <p class="hero-subtitle">Explore programs, track goals, and transform your lifestyle.</p>
+        <a href="{% url 'create_profile' %}" class="btn btn-gradient btn-lg mt-3">Join Now</a>
+    </div>
+</div>
+{% endblock %}
+
+

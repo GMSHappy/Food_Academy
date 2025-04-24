@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    {% if user.is_authenticated %}
+        <div class="text-center mb-4">
+            <h1 class="fw-bold">My Training Programs</h1>
+            <p class="text-muted">Explore your current training modules and stay on track!</p>
+        </div>
+
+        {% if programs %}
+            {% for program in programs %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{% url 'program_detail' program.id %}" class="text-decoration-none text-dark">
+                              {{ program.name }}
+                            </a>
+                          </h4>
+                        <p class="card-text"><strong>Trainer:</strong> {{ program.trainer.name }}</p>
+                        <p class="card-text"><strong>Specialty:</strong> {{ program.trainer.specialty_field }}</p>                          
+                        <p class="card-text">{{ program.description }}</p>
+
+                        <h6 class="mt-3">Lectures:</h6>
+                        <ul>
+                            {% for lecture in program.lectures.all %}
+                                <li><strong>{{ lecture.title }}</strong>: {{ lecture.description }}</li>
+                            {% empty %}
+                                <li class="text-muted">No lectures available for this program yet.</li>
+                            {% endfor %}
+                        </ul>
+                        {% if program.id in enrolled_program_ids %}
+                        <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                        <button class="btn btn-outline-success" disabled>✅ Enrolled</button>
+                     <a href="{% url 'program_detail' program.id %}" class="btn btn-primary">View Program</a>
+                     </div>
+                   {% else %}
+                    <form action="{% url 'enroll_program' program.id %}" method="POST" class="mt-3">
+                     {% csrf_token %}
+                     <button type="submit" class="btn btn-success">Enroll</button>
+                     </form>
+                    {% endif %}
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No programs found. Check back later or contact your trainer.</p>
+        {% endif %}
+
+    {% else %}
+        <div class="text-center mb-5">
+            <h1 class="fw-bold display-5">Find Your Perfect Program 🏋️</h1>
+            <p class="text-muted">Fitness plans made for YOU. Get stronger, feel better, look amazing.</p>
+        </div>
+
+        <div class="row align-items-center g-5">
+            <div class="col-md-6">
+                <img src="{% static 'core/program-illustration.png' %}" alt="Program Illustration" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6">
+                <h3 class="fw-bold">Personalized Programs</h3>
+                <p>Each program is designed by expert trainers to match your goals — whether it's weight loss, muscle gain, or overall fitness.</p>
+                <p>Easy to follow. Fun to complete. Transform your life with our step-by-step plans.</p>
+                <a href="{% url 'create_profile' %}" class="btn btn-gradient mt-3">Create My Profile</a>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="text-center">
+            <h2 class="fw-bold">Ready to Get Started?</h2>
+            <p class="text-muted">Choose a plan and become the best version of YOU</p>
+            <a href="{% url 'home' %}" class="btn btn-outline-primary mt-2">Back to Home</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

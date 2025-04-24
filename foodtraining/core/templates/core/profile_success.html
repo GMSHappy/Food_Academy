@@ -1,0 +1,8 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container text-center my-5">
+    <h2 class="text-success">🎉 Profile Created Successfully!</h2>
+    <p>Thank you, {{ user.username }}. Your fitness journey begins now!</p>
+    <a href="{% url 'home' %}" class="btn btn-outline-primary mt-3">Back to Home</a>
+</div>
+{% endblock %}

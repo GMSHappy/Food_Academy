@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  # Basic setup for the page
+  <meta charset="UTF-8">
+  <title>Food + Training Academy</title>
+  # Linking custom styles and Bootstrap for layout and design
+  <link rel="stylesheet" href="{% static 'core/style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar sticky-top bg-white shadow-sm d-flex justify-content-between align-items-center px-4 py-3">
+  <div class="d-flex align-items-center">
+    # Logo and site title
+    <img src="{% static 'core/logo-banner.png' %}" alt="Logo" class="logo-banner" style="height: 40px; margin-right: 10px;">
+    <span class="fs-4 fw-bold text-dark">Food + <span class="text-primary">Training Academy</span></span>
+  </div>
+  <div>
+    # Navigation links for all users
+    <a href="{% url 'home' %}" class="me-3">Home</a>
+    <a href="{% url 'program_list' %}" class="me-3">Programs</a>
+    <a href="{% url 'workout_list' %}" class="me-3">Workouts</a>
+    <a href="{% url 'blog_list' %}" class="me-3">Blog</a>
+
+    {% if user.is_authenticated %}
+      # Extra options for logged-in users
+      {% if user.trainer %}
+        # Trainer-specific panel link
+        <a href="{% url 'trainer_programs' %}" class="me-3">Trainer Panel</a>
+      {% endif %}
+      {% if user.is_staff %}
+        # Admin dashboard link for staff users
+        <a href="{% url 'admin_dashboard' %}" class="me-3 text-danger fw-bold">Admin</a>
+      {% endif %}
+      # Profile and logout buttons
+      <a href="{% url 'create_profile' %}" class="btn btn-info text-white rounded-pill px-3 py-1 me-2">Profile</a>
+      <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger rounded-pill px-3 py-1">Logout</button>
+      </form>
+    {% else %}
+      # Login and register buttons for guests
+      <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill px-3 py-1 me-2">Login</a>
+      <a href="{% url 'register' %}" class="btn btn-primary rounded-pill px-3 py-1">Register</a>
+    {% endif %}
+  </div>
+</nav>
+
+# Main content area where specific page content will be injected
+<main>
+  {% block content %}
+  {% endblock %}
+</main>
+
+</body>
+</html>
